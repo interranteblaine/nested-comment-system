@@ -61,7 +61,7 @@ function Comment({ id, message, user, createdAt }) {
           <CommentForm
             autofocus
             onSubmit={onCommentReply}
-            loading={createCommentFn.error}
+            loading={createCommentFn.loading}
             error={createCommentFn.error}
           />
         </div>
