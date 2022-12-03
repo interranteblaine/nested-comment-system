@@ -46,12 +46,57 @@ export function PostProvider({ children }) {
     });
   }
 
+  function updateLocalComment(id, message) {
+    setComments((prevComments) => {
+      return prevComments.map((comment) => {
+        if (comment.id === id) {
+          return { ...comment, message };
+        } else {
+          return comment;
+        }
+      });
+    });
+  }
+
+  function deleteLocalComment(id) {
+    setComments((prevComments) => {
+      return prevComments.filter((comment) => comment.id !== id);
+    });
+  }
+
+  function toggleLocalCommentLike(id, addLike) {
+    setComments((prevComments) => {
+      return prevComments.map((comment) => {
+        if (id === comment.id) {
+          if (addLike) {
+            return {
+              ...comment,
+              likeCount: comment.likeCount + 1,
+              likedByMe: true,
+            };
+          } else {
+            return {
+              ...comment,
+              likeCount: comment.likeCount - 1,
+              likedByMe: false,
+            };
+          }
+        } else {
+          return comment;
+        }
+      });
+    });
+  }
+
   return (
     <Context.Provider
       value={{
         post: { id, ...post },
         getReplies,
         createLocalComment,
+        updateLocalComment,
+        deleteLocalComment,
+        toggleLocalCommentLike,
         rootComments: commentsByParentId[null],
       }}
     >

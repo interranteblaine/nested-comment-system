@@ -7,11 +7,11 @@ function CommentForm({
   autoFocus = false,
   initalValue = "",
 }) {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState(initalValue);
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSubmit(message).then(() => setMessage(initalValue));
+    onSubmit(message).then(() => setMessage(""));
   }
 
   return (
